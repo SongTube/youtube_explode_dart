@@ -53,16 +53,16 @@ class ChannelClient {
     var iData = channelAboutPage.initialData;
     assert(iData != null);
     return ChannelAbout(
-        id.description,
-        id.viewCount,
-        id.joinDate,
-        id.title,
+        iData.description,
+        iData.viewCount,
+        iData.joinDate,
+        iData.title,
         [
-          for (var e in id.avatar)
+          for (var e in iData.avatar)
             Thumbnail(Uri.parse(e.url), e.height, e.width)
         ],
-        id.country,
-        id.channelLinks);
+        iData.country,
+        iData.channelLinks);
   }
 
   /// Gets the info found on a YouTube Channel About page.
