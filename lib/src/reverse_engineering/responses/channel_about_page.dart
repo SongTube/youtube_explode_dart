@@ -121,17 +121,17 @@ class _InitialData {
         .channelAboutFullMetadataRenderer;
   }
 
-  String get description => content.description.simpleText;
+  String get description => content.description?.simpleText ?? null;
 
   List<ChannelLink> get channelLinks {
     return content.primaryLinks
-        .map((e) => ChannelLink(
+        ?.map((e) => ChannelLink(
             e.title.simpleText,
             extractUrl(e.navigationEndpoint?.commandMetadata?.webCommandMetadata
                     ?.url ??
                 e.navigationEndpoint.urlEndpoint.url),
             Uri.parse(e.icon.thumbnails.first.url)))
-        .toList();
+        ?.toList() ?? null;
   }
 
   int get viewCount =>
@@ -143,7 +143,7 @@ class _InitialData {
 
   List<AvatarThumbnail> get avatar => content.avatar.thumbnails;
 
-  String get country => content.country.simpleText;
+  String get country => content.country?.simpleText;
 
   String parseRuns(List<dynamic> runs) =>
       runs?.map((e) => e.text)?.join() ?? '';
