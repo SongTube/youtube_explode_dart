@@ -53,4 +53,36 @@ class VideoOnlyStreamInfo implements VideoStreamInfo {
 
   @override
   String toString() => 'Video-only ($tag | $videoQualityLabel | $container)';
+
+  /// Convert to Map
+  Map<String, dynamic> toMap() {
+    return {
+      'streamType': 'videoOnly',
+      'tag': tag,
+      'url': url.toString(),
+      'container': container.name,
+      'size': size.totalBytes,
+      'bitrate': bitrate.bitsPerSecond,
+      'videoCodec': videoCodec,
+      'videoQualityLabel': videoQualityLabel,
+      'videoQuality': videoQuality.toString(),
+      'videoResolution': videoResolution.toMap(),
+      'framerate': framerate.framesPerSecond.toString()
+    };
+  }
+
+  /// Initialize this model from Map
+  // ignore: prefer_constructors_over_static_methods
+  static VideoOnlyStreamInfo fromMap(Map<String, dynamic> map) {
+    return VideoOnlyStreamInfo(
+      map['tag'], Uri.parse(map['url']),
+      StreamContainer.parse(map['container']),
+      FileSize(map['size']), Bitrate(map['bitrate']),
+      map['videoCodec'], map['videoQualityLabel'],
+      videoQualityFromString(map['videoQuality']),
+      VideoResolution.fromMap(map['videoResolution']),
+      Framerate(double.parse(map['framerate']))
+    );
+  }
+
 }

@@ -62,4 +62,38 @@ class MuxedStreamInfo implements AudioStreamInfo, VideoStreamInfo {
 
   @override
   String toString() => 'Muxed ($tag | $videoQualityLabel | $container)';
+
+  /// Convert to Map
+  Map<String, dynamic> toMap() {
+    return {
+      'streamType': 'muxed',
+      'tag': tag,
+      'url': url.toString(),
+      'container': container.name,
+      'size': size.totalBytes,
+      'bitrate': bitrate.bitsPerSecond,
+      'audioCodec': audioCodec,
+      'videoCodec': videoCodec,
+      'videoQualityLabel': videoQualityLabel,
+      'videoQuality': videoQuality.toString(),
+      'videoResolution': videoResolution.toMap(),
+      'framerate': framerate.framesPerSecond.toString()
+    };
+  }
+
+  /// Initialize this model from Map
+  // ignore: prefer_constructors_over_static_methods
+  static MuxedStreamInfo fromMap(Map<String, dynamic> map) {
+    return MuxedStreamInfo(
+      map['tag'], Uri.parse(map['url']),
+      StreamContainer.parse(map['container']),
+      FileSize(map['size']), Bitrate(map['bitrate']),
+      map['audioCodec'], map['videoCodec'],
+      map['videoQualityLabel'],
+      videoQualityFromString(map['videoQuality']),
+      VideoResolution.fromMap(map['videoResolution']),
+      Framerate(double.parse(map['framerate']))
+    );
+  }
+
 }

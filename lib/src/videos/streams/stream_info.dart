@@ -22,6 +22,7 @@ abstract class StreamInfo {
 
   /// Initialize an instance of [StreamInfo].
   StreamInfo(this.tag, this.url, this.container, this.size, this.bitrate);
+
 }
 
 /// Extension for Iterables of StreamInfo.
