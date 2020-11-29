@@ -20,18 +20,19 @@ class Channel with EquatableMixin {
   Channel(this.id, this.title, this.logoUrl);
 
   /// Transform Channel instance to Map
-  Map<String, dynamic> toMap(Channel channel) {
+  Map<String, dynamic> toMap() {
     return {
-      'id': id,
+      'id': id.value,
       'title': title,
       'logoUrl': logoUrl
     };
   }
 
   /// Get a Channel instance from Map
-  Channel fromMap(Map<String, dynamic> map) {
+  // ignore: prefer_constructors_over_static_methods
+  static Channel fromMap(Map<String, dynamic> map) {
     return Channel(
-      map['id'],
+      ChannelId(map['id']),
       map['title'],
       map['logoUrl']
     );

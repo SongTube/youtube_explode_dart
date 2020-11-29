@@ -46,8 +46,7 @@ void main() {
 
   test('Get the videos of a youtube channel', () async {
     var videos = await yt.channels
-        .getUploads(ChannelId(
-            'https://www.youtube.com/channel/UCEnBXANsKmyj2r9xVyKoDiQ'))
+        .getUploadsFromPage('UCikoFH_sIPY3-DK64K8-b9g')
         .toList();
     expect(videos.length, greaterThanOrEqualTo(80));
   });
@@ -72,4 +71,20 @@ void main() {
         .toList();
     expect(videos, hasLength(30));
   });
+
+  test('Transform Channel to Map', () async {
+    var channelUrl = 'https://www.youtube.com/channel/UCEnBXANsKmyj2r9xVyKoDiQ';
+    var channel = await yt.channels.get(ChannelId(channelUrl));
+    var channelJson = channel.toMap();
+    expect(channelJson, isNotEmpty);
+  });
+
+  test('Transform valid Map to Channel', () async {
+    var channelUrl = 'https://www.youtube.com/channel/UCEnBXANsKmyj2r9xVyKoDiQ';
+    var channel = await yt.channels.get(ChannelId(channelUrl));
+    var channelMap = channel.toMap();
+    var newChannel = Channel.fromMap(channelMap);
+    expect(newChannel, isNotNull);
+  });
+
 }
