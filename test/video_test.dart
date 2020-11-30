@@ -61,4 +61,18 @@ void main() {
       });
     }
   });
+
+  test('Transform Video to Map', () async {
+    var video = await yt.videos.get('9bZkp7q19f0');
+    var map = video.toMap();
+    expect(map, isNotEmpty);
+  });
+
+  test('Transform valid Map to Video', () async {
+    var video = await yt.videos.get('9bZkp7q19f0');
+    var map = video.toMap();
+    var newVideo = Video.fromMap(map);
+    expect(newVideo, isNotNull);
+  });
+
 }

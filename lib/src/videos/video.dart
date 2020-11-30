@@ -69,4 +69,37 @@ class Video with EquatableMixin {
 
   @override
   List<Object> get props => [id];
+
+  /// Convert to Map
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id.value,
+      'title': title,
+      'author': author,
+      'channelId': channelId.value,
+      'uploadDate': uploadDate.toString(),
+      'description': description,
+      'duration': duration.inSeconds.toString(),
+      'thumbnails': id.value,
+      'engagement': engagement.toMap(),
+    };
+  }
+
+  /// Create an instance of this model from Map
+  // ignore: prefer_constructors_over_static_methods
+  static Video fromMap(Map<String, dynamic> map) {
+    return Video(
+      VideoId(map['id']),
+      map['title'],
+      map['author'],
+      ChannelId(map['channelId']),
+      DateTime.parse(map['uploadDate']),
+      map['description'],
+      Duration(seconds: int.parse(map['duration'])),
+      ThumbnailSet(map['thumbnails']),
+      null,
+      Engagement.fromMap(map['engagement']),
+      null
+    );
+  }
 }
