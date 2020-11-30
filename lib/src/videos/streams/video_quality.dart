@@ -36,7 +36,7 @@ enum VideoQuality {
 
 /// Convert video quality to enum VideoQuality
 VideoQuality videoQualityFromString(String quality) {
-  switch (quality) {
+  switch (quality.split(".").last) {
     case 'low144':
       return VideoQuality.low144;
       break;
